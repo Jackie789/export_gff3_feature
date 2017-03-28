@@ -3,8 +3,8 @@ import sys
 import re
 
 #Open and read the gff3 file
-this_program_is_cray = re.search(r"--source_gff=/(.*)", sys.argv[1])
-gff3_opening = open(this_program_is_cray.group(1))
+file_input = re.search(r"--source_gff=/(.*)", sys.argv[1])
+gff3_opening = open(file_input.group(1))
 gff3_contents =  gff3_opening.read()
 
 #Create variables from sys.argv input
@@ -63,34 +63,3 @@ sequence = gff3_contents.find(chromosome)
 print(gff3_contents[sequence:(sequence+len(chromosome))])
 
 print(gff3_contents[(sequence + len(chromosome) + int(match_start)):(sequence+len(chromosome) + int(match_end))])
-
-# Example input and output
-$ python export_gff3_feature.py --source_gff=/home/jzuker1/final/Saccharomyces_cerevisiae_S288C.annotation.gff --type=gene --attribute=ID --value=YAL068W
->gene:ID:YAL068W
->chrI
-CACTCACATCATTATGCACGGCACTTGCCTCAGCGG
-TCTATACCCTGTGCCATTTACCCATAACGCCCATCATTATCCACATTTTGATATCTATATCTCATTCGGCGGTCCCAAAT
-ATTGTATAACTGCCCTTAATACATACGTTATACCACTTTTGCACCATATACTTACCACTCCATTTATATACACTTATGTC
-AATATTACAGAAAAATCCCCACAAAAATCACCTAAACATAAAAATATTCTAC
-
-
-$ python export_gff3_feature.py --source_gff=/home/jzuker1/final/Saccharomyces_cerevisiae_S288C.annotation.gff --type=gene --attribute=ID --value=YAL063C-A
->gene:ID:YAL063C-A
->chrI
-TAGGTCGAAAATTTAAGGCCACATAAATCCAGAGCCCGCAACTTGGATAGGTATTTACTTGATTTTTAGTTTG
-CTTTCAATAGTGTCGTGAAATTATAAAGTACGCCGCATATATATCTTGATTAGTTAAAAATAGCAGTGTTCAATGATGAT
-TTGATAGGGTTCATAACTGGTACCAGCGTAGTACAATTACGATTATCCATGAACATAAAAGTGGTTTAAGTACTATATAT
-CAGTGAAGCTTCAAAGTAAGCAAACGAGATACCAAGATCTTGTAGGACCAC
-
-$ python export_gff3_feature.py --source_gff=/home/jzuker1/final/Saccharomyces_cerevisiae_S288C.annotation.gff --type=gene --attribute=ID --value=YAL065C
->gene:ID:YAL065C
->chrI
-GCCATTAACTAACAAGAGAATTAATAATGTTAAAACACAGATACCTCGAAACAAACTCTATGTAAACACTTATTTTATT
-GTGGTAATATTTTTTGATAACAACACATCTGAAACAAAATAATGCAAAGCCGAATAGTTAGGCTAAAAATGTACTCTTAG
-ACATTTAAAAAGGTTTATGAATCCTATGGTATTTAATATATTAAAGAACGAAGTAAATGGGAAAAAATGTGTAAACACTA
-TAAGCGTGATGATAGAATTATTAATATAAGATGATGCCGTGCGTTTACCATACGATTGCCAGCAATACGGTGGAAATAAA
-AACACTTATGCCATTATTGGTCAACAGACCATTGGCAATACCAACGTAGGTTGAGATTT
-
-$ python export_gff3_feature.py --source_gff=/home/jzuker1/final/Saccharomyces_cerevisiae_S288C.annotation.gff --type=ARS --attribute=ID --value=ARS102FS
-Sorry, no matches were found.
->ARS:ID:ARS102FS
